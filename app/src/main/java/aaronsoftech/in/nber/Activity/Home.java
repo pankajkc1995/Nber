@@ -960,7 +960,7 @@ public class Home extends AppCompatActivity
                                 }else{
 
                                     Show_dialog_box(message.getUser_id(), message.getBook_id(), location,message.getVehicle_image(),message.getVehicle_type_id(),
-                                            message.getVehicle_no(),message.getAmount(),message.getUser_contact(),message.getUser_image(),message.getUser_name());
+                                            message.getVehicle_no(),message.getAmount(),message.getUser_contact(),message.getUser_image(),message.getUser_name(),message.getTo_address(),message.getFrom_address());
                                     addNotification();
                                 }
 
@@ -1263,7 +1263,7 @@ public class Home extends AppCompatActivity
         }
     }
 
-    private void Show_dialog_box(final String user_id,final String book_id, final Location location, final String veh_img, final String veh_type_id, final String veh_no, final String amount, final String contact, final String img, final String name) {
+    private void Show_dialog_box(final String user_id,final String book_id, final Location location, final String veh_img, final String veh_type_id, final String veh_no, final String amount, final String contact, final String img, final String name,String to_add,String from_add) {
         try{
             String msg="NBER "+name+" booked a ride to accept check and go for ride";
           //  String msg="NBER booked a ride to accept check and go for ride";
@@ -1273,10 +1273,22 @@ public class Home extends AppCompatActivity
             View v = inflater.inflate(R.layout.booking_confirm_layout, null);
             txt_booking_timer=v.findViewById(R.id.timer_booking);
             final TextView txt_msg=v.findViewById(R.id.txt_msg);
+            final TextView txt_from=v.findViewById(R.id.txt_from);
+            final TextView txt_amount=v.findViewById(R.id.txt_amount);
+
+            final TextView txt_to=v.findViewById(R.id.txt_to);
+            txt_from.setText(from_add);
+            txt_to.setText(to_add);
             final TextView txt_accept=v.findViewById(R.id.txt_accept);
             final CircleProgressView mCircleView = (CircleProgressView)v. findViewById(R.id.circleView);
             bottomSheetDialog.setContentView(v);
             txt_msg.setText(msg);
+            DecimalFormat df2 = new DecimalFormat("#.##");
+            if (amount != null) {
+                txt_amount.setText(df2.format(Double.valueOf(amount)));
+            } else {
+                txt_amount.setText(amount);
+            }
 
             if (time_value)
             {   time_value=false;

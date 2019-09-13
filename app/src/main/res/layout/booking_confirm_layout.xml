@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:CircleProgressView="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:gravity="center"
     android:layout_height="wrap_content">
     <TextView
         android:layout_width="match_parent"
@@ -16,36 +15,81 @@
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:layout_height="wrap_content" />
-    <at.grabner.circleprogress.CircleProgressView
-        android:id="@+id/circleView"
-        android:layout_width="151dp"
-        android:layout_height="151dp"
-        android:layout_margin="22dp"
-        CircleProgressView:cpv_barColor="@color/colorPrimary"
-        CircleProgressView:cpv_barWidth="2dp"
-        CircleProgressView:cpv_innerContourSize="1dp"
-        CircleProgressView:cpv_maxValue="30"
-        CircleProgressView:cpv_outerContourSize="1dp"
-        CircleProgressView:cpv_rimColor="@color/colorPrimary"
-        CircleProgressView:cpv_rimWidth="40dp"
-        CircleProgressView:cpv_seekMode="true"
-        CircleProgressView:cpv_spinColor="@color/colorPrimaryDark"
-        CircleProgressView:cpv_textColor="@color/colorPrimaryDark"
-        app:cpv_maxValue="30"
-        app:cpv_textSize="50dp"
-        CircleProgressView:cpv_showUnit="true"
-        app:cpv_unitSize="30dp"
-        CircleProgressView:cpv_textScale="1"
-        CircleProgressView:cpv_unitColor="@color/colorPrimary"
-        CircleProgressView:cpv_unitPosition="right_top"
-        CircleProgressView:cpv_unitScale="1"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+        <at.grabner.circleprogress.CircleProgressView
+            android:id="@+id/circleView"
+            android:layout_width="131dp"
+            android:layout_height="131dp"
+            android:layout_margin="22dp"
+            CircleProgressView:cpv_barColor="@color/colorPrimary"
+            CircleProgressView:cpv_barWidth="2dp"
+            CircleProgressView:cpv_innerContourSize="1dp"
+            CircleProgressView:cpv_maxValue="30"
+            CircleProgressView:cpv_outerContourSize="1dp"
+            CircleProgressView:cpv_rimColor="@color/colorPrimary"
+            CircleProgressView:cpv_rimWidth="40dp"
+            CircleProgressView:cpv_seekMode="true"
+            CircleProgressView:cpv_spinColor="@color/colorPrimaryDark"
+            CircleProgressView:cpv_textColor="@color/colorPrimaryDark"
+            app:cpv_maxValue="30"
+            app:cpv_textSize="50dp"
+            CircleProgressView:cpv_showUnit="true"
+            app:cpv_unitSize="30dp"
+            CircleProgressView:cpv_textScale="1"
+            CircleProgressView:cpv_unitColor="@color/colorPrimary"
+            CircleProgressView:cpv_unitPosition="right_top"
+            CircleProgressView:cpv_unitScale="1"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="@string/rupee_sign"
+                android:textSize="35dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginBottom="22dp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="00.0"
+                android:id="@+id/txt_amount"
+                android:textSize="44dp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:padding="22dp"
+        android:textColor="@android:color/black"
         android:id="@+id/txt_msg"
+        android:textSize="20dp"
         android:text="NBER  booked a ride to accept check and go for ride"
         android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/txt_from"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_height="match_parent" />
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/txt_to"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginBottom="11dp"
+        android:layout_height="match_parent" />
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
