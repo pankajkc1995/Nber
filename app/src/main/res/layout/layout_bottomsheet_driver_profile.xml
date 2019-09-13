@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@drawable/textview"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:hint="00:00:00"
+            android:textSize="22dp"
+            android:id="@+id/txt_remain_time"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_margin="11dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:padding="21dp"
+            android:background="@drawable/textview"
+            android:layout_below="@+id/txt_remain_time"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:id="@+id/driver_veh"
+                    android:src="@drawable/default_user_profile_img"
+                    android:layout_height="80dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:hint="Driver name"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:id="@+id/txt_name"
+                    android:textColor="@color/grey_800"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="15dp"
+                        android:id="@+id/driver_veh2"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@android:drawable/ic_menu_call"
+                        android:layout_height="match_parent" >
+                    </TextView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:hint="Driver Mobile no"
+                        android:layout_gravity="center"
+                        android:id="@+id/txt_mobile"
+                        android:textSize="14dp"
+                        android:textColor="@color/grey_600"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <RatingBar
+                        android:id="@+id/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:numStars="5"
+                        android:stepSize="0.1"
+
+                        android:layout_gravity="center"
+                        android:isIndicator="true" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:hint="Amount"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:id="@+id/txt_amount"
+                        android:textColor="@color/grey_600"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:hint="Vehicle no"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:id="@+id/txt_veh_no"
+                    android:textColor="@color/grey_600"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="80dp"
+                android:id="@+id/driver_img"
+                app:civ_border_overlay="true"
+                app:civ_border_width="1dp"
+                app:civ_circle_background_color="@color/colorPrimaryDark"
+                app:civ_border_color="@color/colorPrimaryDark"
+                android:src="@drawable/default_user_profile_img"
+                android:layout_height="80dp" />
+        </LinearLayout>
+    </RelativeLayout>

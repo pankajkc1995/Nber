@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/coordinatorLayout"
+    tools:context="aaronsoftech.in.nber.Activity.From_Location">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <fragment
+                    android:id="@+id/googleMap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/pin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:paddingBottom="27dp"
+                        android:src="@drawable/ic_map_pin" />
+                </fragment>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:paddingLeft="11dp"
+                        android:id="@+id/back_btn_location"
+                        android:src="@drawable/ic_menu_button_of_three_horizontal_lines"
+                        android:layout_height="50dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginRight="44dp"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="    For me"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="20dp"
+                            android:paddingLeft="11dp"
+                            android:drawableLeft="@drawable/ic_user_black"
+                            android:layout_height="40dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/layout_one"
+                android:layout_marginTop="7dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="11dp"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:orientation="horizontal">
+
+
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="4dp"
+                            android:elevation="5dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginStart="4dp">
+
+                            <TextView
+                                android:id="@+id/et_location"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:hint="From address here"
+                                android:padding="5dp"
+                                android:textSize="18dp"
+                                android:background="@drawable/login_et_rectangle2"
+                                android:singleLine="true"
+                                android:textColor="@android:color/black"
+                                />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:src="@drawable/ic_mapplace"
+                                android:id="@+id/find_location"
+                                android:visibility="gone"
+                                android:layout_height="30dp" />
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="4dp"
+                            android:clipToPadding="false"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginStart="4dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/et_location2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:hint="To address here"
+                                android:padding="5dp"
+                                android:textSize="18dp"
+                                android:singleLine="true"
+                                android:textColor="@android:color/black"
+                                android:textColorHint="@android:color/darker_gray"
+                                />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:src="@drawable/ic_mapplace"
+                                android:visibility="gone"
+                                android:id="@+id/find_location2"
+                                android:layout_height="30dp" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/grey_20"></View>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+       android:layout_weight="1"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+        <include layout="@layout/layout_calander"
+            ></include>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/login_et_rectangle2"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textSize="18dp"
+        android:textColor="@android:color/black"
+        android:singleLine="true"
+        android:text="Search"
+        android:textStyle="bold" />
+
+      <Gallery
+        android:id="@+id/gallery"
+        android:scrollbars="horizontal"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/recycle_vehicle_Select_list"
+        android:visibility="gone"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_marginTop="11dp"
+        android:id="@+id/layout_btn_order"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txt_book_now"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/border_line_yellow"
+            android:gravity="center"
+            android:padding="7dp"
+            android:singleLine="true"
+            android:textSize="20dp"
+            android:text="Book now"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txt_book_later"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_line_yellow"
+            android:gravity="center"
+            android:padding="7dp"
+            android:singleLine="true"
+            android:text="Book later"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</LinearLayout>
