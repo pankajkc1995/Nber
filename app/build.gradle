@@ -86,7 +86,7 @@ dependencies {
     compile('com.github.nkzawa:socket.io-client:0.4.1') {
         exclude group: 'org.json', module: 'json'
     }
-
+    implementation 'com.github.jakob-grabner:Circle-Progress-View:1.4'
 }
 
 

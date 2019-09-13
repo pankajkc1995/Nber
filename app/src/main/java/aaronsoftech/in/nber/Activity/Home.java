@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.Uri;
@@ -120,6 +121,8 @@ import aaronsoftech.in.nber.R;
 import aaronsoftech.in.nber.Service.APIClient;
 import aaronsoftech.in.nber.Utils.App_Utils;
 import aaronsoftech.in.nber.Utils.SP_Utils;
+import at.grabner.circleprogress.CircleProgressView;
+import at.grabner.circleprogress.TextMode;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
@@ -944,7 +947,9 @@ public class Home extends AppCompatActivity
                      {
                         String Driver_ID=App_Conteroller.sharedpreferences.getString(SP_Utils.LOGIN_DRIVER_ID,"");
                         String get_Driver_ID=message.getDriver_id().toString();
-                        if (get_Driver_ID.equalsIgnoreCase(Driver_ID) && (Accept_this_booking==0) )
+
+
+                         if (get_Driver_ID.equalsIgnoreCase(Driver_ID) && (Accept_this_booking==0) )
                         {
                                 Accept_this_booking=11;
 
@@ -1269,31 +1274,20 @@ public class Home extends AppCompatActivity
             txt_booking_timer=v.findViewById(R.id.timer_booking);
             final TextView txt_msg=v.findViewById(R.id.txt_msg);
             final TextView txt_accept=v.findViewById(R.id.txt_accept);
+            final CircleProgressView mCircleView = (CircleProgressView)v. findViewById(R.id.circleView);
             bottomSheetDialog.setContentView(v);
             txt_msg.setText(msg);
-
-       //     startTimer_booking(txt_booking_timer,10);
-
-           /* for (time_value = 60; time_value>1; time_value--)
-            {
-                Handler handler=new Handler();
-                Runnable runnable=new Runnable() {
-                    @Override
-                    public void run() {
-                        txt_booking_timer.setText(time_value);
-                    }
-                };
-                handler.postDelayed(runnable,1000);
-            }*/
 
             if (time_value)
             {   time_value=false;
                 new CountDownTimer(30000, 1000) {
-
                     public void onTick(long millisUntilFinished) {
                         txt_booking_timer.setText("Remaining: " + millisUntilFinished / 1000);
+                        mCircleView.setValue(millisUntilFinished / 1000);
                     }
                     public void onFinish() {
+                        bottomSheetDialog.dismiss();
+                        Toast.makeText(Home.this, "Cancel your booking", Toast.LENGTH_SHORT).show();
                         txt_booking_timer.setText("done!");
                     }
                 }.start();
