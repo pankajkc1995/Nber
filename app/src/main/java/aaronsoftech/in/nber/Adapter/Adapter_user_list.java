@@ -52,7 +52,6 @@ public class Adapter_user_list extends RecyclerView.Adapter<Adapter_user_list.My
             }else{
                 holder.txt_price.setText("0.00");
             }
-
             holder.txt_status.setText(get_list.get(position).getPayment_status());
             holder.txt_add_from.setText("From :"+get_list.get(position).getFrom_address());
             holder.txt_add_to.setText("To :"+get_list.get(position).getTo_address());

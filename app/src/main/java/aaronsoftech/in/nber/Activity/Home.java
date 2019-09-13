@@ -168,7 +168,7 @@ public class Home extends AppCompatActivity
     TextView txt_booking_timer;
     List<Response_Booking_List.User_List> get_Booking_List=new ArrayList<>();
     LinearLayout layout_user_info,layout_user_profile_list;
-    TextView btn_finish_ride_driver,btn_finish_ride_user,btn_from_address;
+    TextView btn_finish_ride_driver,btn_cancel_ride_driver,btn_finish_ride_user,btn_from_address;
     String get_Selected_Driver_Id;
     String get_BookID_Status,get_vehicle_id_status,get_book_id_2;
     RadioButton btn_driver_status;
@@ -324,6 +324,8 @@ public class Home extends AppCompatActivity
         btn_from_address=findViewById(R.id.set_loaction);
         btn_driver_status=findViewById(R.id.set_driver_status);
         btn_finish_ride_driver =findViewById(R.id.txt_finish_ride);
+        btn_cancel_ride_driver =findViewById(R.id.txt_cancel_ride);
+
         btn_finish_ride_user=findViewById(R.id.txt_finish_ride2);
         layout_user_profile_list=findViewById(R.id.layout_bottomsheet_list);
         layout_user_info=findViewById(R.id.layout_bottomsheet_user_info);
@@ -570,7 +572,92 @@ public class Home extends AppCompatActivity
         StaggeredGridLayoutManager staggeredGridLayoutManager2 = new StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL);
         user_list_recycle.setLayoutManager(staggeredGridLayoutManager2); // set LayoutManager to RecyclerView
         Adapter_user_list aa=new Adapter_user_list(Home.this,list,Home.this);
+        btn_cancel_ride_driver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog = App_Utils.createDialog(Home.this, false);
+                dialog.setCancelable(false);
+                TextView txt_DialogTitle = (TextView) dialog.findViewById(R.id.txt_DialogTitle);
+                txt_DialogTitle.setText("If user cancallation trip 15% amt will be charged");
+                TextView txt_submit = (TextView) dialog.findViewById(R.id.txt_submit);
+                txt_submit.setText("Yes");
+                txt_submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        try{
 
+                            payment_history_map.clear();
+                            double price= (Double.parseDouble(list.get(0).getAmount()));
+
+                            price=0.015*price;
+
+                            payment_history_map.put("ride_amount",""+price);
+                            double amount_driver=0.7*price;
+                            double amount_comp=0.3*price;
+                            Log.i(TAG,"Price dirver :"+amount_driver);
+                            Log.i(TAG,"Price Comp :"+amount_comp);
+
+                            DecimalFormat df2=new DecimalFormat("#.##");
+
+                            price= Double.parseDouble(df2.format(price));
+                            amount_driver= Double.parseDouble(df2.format(amount_driver));
+                            amount_comp= Double.parseDouble(df2.format(amount_comp));
+
+                            get_Selected_Driver_Id=App_Conteroller.sharedpreferences.getString(SP_Utils.LOGIN_DRIVER_ID,"");
+                            payment_history_map.put("driver_earning",""+amount_driver);
+                            payment_history_map.put("comp_commission",""+amount_comp);
+                            //add_payment_gatway(list);
+                            Change_ride_status(list.get(0).getUser_id(),list.get(0).getId(),list.get(0).getVehicle_id(),"COD");
+                            mDatabase = FirebaseDatabase.getInstance().getReference();
+                            mDatabase.child("Driver_ID").child(driverid).removeValue();
+
+                            final HashMap<String,String> hashMap=new HashMap<>();
+                            hashMap.put("driver_id",""+App_Conteroller.sharedpreferences.getString(SP_Utils.LOGIN_DRIVER_ID,""));
+                            hashMap.put("amt_type","COD");
+                            hashMap.put("amount",""+amount_driver);
+                            hashMap.put("remark","Added to wallet");
+                            hashMap.put("timestamp",""+App_Utils.getCurrentdate());
+                            hashMap.put("status","success");
+                            wallet_save(hashMap);
+
+                            progressDialog=new ProgressDialog(Home.this);
+                            progressDialog.setCancelable(false);
+                            progressDialog.setMessage("Loading...");
+                            progressDialog.show();
+                            get_Booking_List.clear();
+
+                            Change_ride_status(list.get(0).getUser_id(),get_BookID_Status,get_vehicle_id_status,"COD");
+
+                            mDatabase = FirebaseDatabase.getInstance().getReference();
+                            mDatabase.child("Driver_ID").child(driverid).removeValue();
+
+                            try {
+                                Toast.makeText(Home.this, "Payment Successful: ", Toast.LENGTH_SHORT).show();
+                                btn_finish_ride_user.setVisibility(View.GONE);
+                                btn_finish_ride_driver.setVisibility(View.GONE);
+                                btn_cancel_ride_driver.setVisibility(View.GONE);
+                            } catch (Exception e) {
+                                Log.e(TAG, "Exception in onPaymentSuccess", e);
+                            }
+
+                            mMap.clear();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                TextView txt_cancel = (TextView) dialog.findViewById(R.id.txt_cancel);
+                txt_cancel.setText("No");
+                txt_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
         btn_finish_ride_driver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -633,6 +720,7 @@ public class Home extends AppCompatActivity
                                 Toast.makeText(Home.this, "Payment Successful: ", Toast.LENGTH_SHORT).show();
                                 btn_finish_ride_user.setVisibility(View.GONE);
                                 btn_finish_ride_driver.setVisibility(View.GONE);
+                                btn_cancel_ride_driver.setVisibility(View.GONE);
                             } catch (Exception e) {
                                 Log.e(TAG, "Exception in onPaymentSuccess", e);
                             }
@@ -685,6 +773,7 @@ public class Home extends AppCompatActivity
             Toast.makeText(Home.this, "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
             btn_finish_ride_user.setVisibility(View.GONE);
             btn_finish_ride_driver.setVisibility(View.GONE);
+            btn_cancel_ride_driver.setVisibility(View.GONE);
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentSuccess", e);
         }
@@ -743,6 +832,7 @@ public class Home extends AppCompatActivity
                             mMap.clear();
                             btn_finish_ride_user.setVisibility(View.GONE);
                             btn_finish_ride_driver.setVisibility(View.GONE);
+                            btn_cancel_ride_driver.setVisibility(View.GONE);
                             if (App_Conteroller.sharedpreferences.getString(SP_Utils.LOGIN_DRIVER_ID,"").equalsIgnoreCase("null")
                                     || App_Conteroller.sharedpreferences.getString(SP_Utils.LOGIN_DRIVER_ID,"").equalsIgnoreCase(null)
                                     || App_Conteroller.sharedpreferences.getString(SP_Utils.LOGIN_DRIVER_ID,"").equalsIgnoreCase(""))
@@ -1700,7 +1790,7 @@ public class Home extends AppCompatActivity
         }
         btn_finish_ride_user.setVisibility(View.VISIBLE);
         btn_finish_ride_driver.setVisibility(View.VISIBLE);
-
+        btn_cancel_ride_driver.setVisibility(View.VISIBLE);
         try {
                 final MarkerOptions marker1e = new MarkerOptions().position(
                         //"Drop off at:"+"\n"+
