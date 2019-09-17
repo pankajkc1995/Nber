@@ -1471,7 +1471,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
                                                 };
                                                 handler.postDelayed(runnable,30000);*/
                                                 Log.i(TAG,"Remaining time :start");
-                                                new CountDownTimer(30000, 1000) {
+                                                new CountDownTimer(50000, 1000) {
 
                                                     public void onTick(long millisUntilFinished) {
                                                  //       txt_booking_timer.setText("Remaining: " + millisUntilFinished / 1000);
@@ -1804,6 +1804,9 @@ public class From_Location extends AppCompatActivity implements LocationListener
         } else {
             txt_amount.setText("0.00");
         }
+
+     //   String img_txt="http://thenber.com/backend/public/"+book_vehicle_image;
+
         Picasso.with(From_Location.this).load(get_Vehicle_icon).into(vehi_typ_img);
         Picasso.with(From_Location.this).load(book_vehicle_image).into(vehi_img);
         bottomSheetDialog.setContentView(v);
@@ -1812,9 +1815,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
             public void onClick(View view) {
                 if (App_Utils.isNetworkAvailable(From_Location.this)){
                     Check_booking_status=false;
-
                     get_driver_token(datenew,book_vehicleid,book_amount,book_Driver_ID,book_vehicle_no,book_vehicle_image,book_refreshtoken,book_vehicle_type_id,Book_status);
-
                 }else{
                     Toast.makeText(From_Location.this, "No Internet", Toast.LENGTH_SHORT).show();
                 }

@@ -56,7 +56,6 @@ public class Acc_edit extends AppCompatActivity  {
     EditText ed_name,ed_address,ed_city,ed_email,ed_state,ed_country,tx_mobile,ed_zipcode;
     Toolbar mToolbar22;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

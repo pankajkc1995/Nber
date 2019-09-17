@@ -70,9 +70,9 @@ public class login_mobile extends AppCompatActivity {
     }
 
     private void Call_Intent() {
-        startActivity(new Intent(login_mobile.this,Verification.class).putExtra("mobile",ed_mobile.getText().toString().trim()).putExtra("otp","no"));
+     //   startActivity(new Intent(login_mobile.this,Verification.class).putExtra("mobile",ed_mobile.getText().toString().trim()).putExtra("otp","no"));
 
-       /* if (isNetworkAvailable(login_mobile.this)) {
+        if (isNetworkAvailable(login_mobile.this)) {
             refreshedToken = FirebaseInstanceId.getInstance().getToken();
             Log.i(TAG, "Token ID :  " + refreshedToken);
 
@@ -87,7 +87,7 @@ public class login_mobile extends AppCompatActivity {
            }
         }else{
             Toast.makeText(activity_login_mobile, "No internet Connection", Toast.LENGTH_SHORT).show();
-        }*/
+        }
     }
 
     private void sendVerificationCode(String mobile) {

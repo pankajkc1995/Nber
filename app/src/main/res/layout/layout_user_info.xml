@@ -40,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Tempo"
+        android:gravity="right"
         android:textColor="@color/overlay_dark_60"
         android:textSize="16dp"
         />
@@ -51,7 +52,7 @@
             android:text="Tempo"
             android:maxLines="2"
             android:textColor="@color/overlay_dark_60"
-            android:textSize="14dp"
+            android:textSize="12dp"
             />
         <TextView
             android:id="@+id/txt_to"
@@ -61,7 +62,7 @@
             android:text="Tempo"
             android:maxLines="2"
             android:textColor="@color/overlay_dark_60"
-            android:textSize="14dp"
+            android:textSize="12dp"
             />
 
         <LinearLayout
@@ -80,11 +81,17 @@
                 android:layout_height="match_parent" />
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Pending"
+                android:text="Total Payment"
+                android:textSize="16dp"
+                android:textColor="@android:color/black"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Total Payment"
                 android:textSize="16dp"
                 android:id="@+id/status"
                 android:visibility="gone"
-                android:layout_marginLeft="11dp"
+                android:textColor="@android:color/black"
                 android:layout_height="match_parent" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,14 +105,14 @@
                     android:text="@string/rupee_sign"
                     android:id="@+id/price"
                     android:textSize="16dp"
-                    android:textColor="@color/overlay_dark_60" />
+                    android:textColor="@color/colorPrimary" />
                 <TextView
                     android:id="@+id/txt_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price: "
                     android:textSize="16dp"
-                    android:textColor="@color/overlay_dark_60" />
+                    android:textColor="@color/colorPrimaryDark" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

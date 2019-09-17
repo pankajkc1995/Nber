@@ -179,7 +179,22 @@ public class Vehicle_reg extends AppCompatActivity {
 
                                 try{
                                     get_vehicle_type=Integer.valueOf(getlist.get(0).getVehicle_type_id());
-
+                                    if (get_vehicle_type==8)
+                                    {
+                                        vehicle_type.setSelection(0);
+                                    }else if (get_vehicle_type==7)
+                                    {
+                                        vehicle_type.setSelection(1);
+                                    }else if (get_vehicle_type==6)
+                                    {
+                                        vehicle_type.setSelection(2);
+                                    }else if (get_vehicle_type==5)
+                                    {
+                                        vehicle_type.setSelection(3);
+                                    }else
+                                    {
+                                        vehicle_type.setSelection(4);
+                                    }
                                 }catch (Exception e){e.printStackTrace();}
 
                                 try{Picasso.with(Vehicle_reg.this).load(getlist.get(0).getPermit()).into(btn_permit);  }catch (Exception e){e.printStackTrace();}
