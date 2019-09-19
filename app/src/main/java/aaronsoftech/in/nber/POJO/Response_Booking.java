@@ -16,6 +16,7 @@ public class Response_Booking {
     String payment_status;
     String amount;
     String pickup;
+    String refer_code;
     String status;
     String driver_id;
     String vehicle_type_id;
@@ -24,6 +25,14 @@ public class Response_Booking {
     String user_image;
     String user_contact;
     String book_id;
+
+    public String getRefer_code() {
+        return refer_code;
+    }
+
+    public void setRefer_code(String refer_code) {
+        this.refer_code = refer_code;
+    }
 
     public String getBook_id() {
         return book_id;

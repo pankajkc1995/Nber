@@ -93,7 +93,6 @@ public class Adapter_user_list extends RecyclerView.Adapter<Adapter_user_list.My
            txt_to.setText(get_list.getTo_address());
            txt_date.setText(get_list.getBooked_date_time());
 
-
            DecimalFormat df2 = new DecimalFormat("#.##");
            if (get_list.getAmount() != null) {
                txt_amount.setText(df2.format(Double.valueOf(get_list.getAmount())));

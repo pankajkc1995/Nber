@@ -186,6 +186,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
     String get_vehicle_type,get_Vehicle_icon;
     boolean check_get_location=true;
     LinearLayout layout_loc_one;
+    CountDownTimer countDownTimer;
     boolean chk_timer_booking=true;
     double current_lat= 0.0;
     double current_lng= 0.0;
@@ -606,7 +607,31 @@ public class From_Location extends AppCompatActivity implements LocationListener
         });
 
     }
+    static String getAlphaNumericString(int n)
+    {
 
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+
+        return sb.toString();
+    }
     private void Call_Vihicle_Api() {
 
    //     recyclerView_vehicle_type.setVisibility(View.VISIBLE);
@@ -1375,7 +1400,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
 
     }
 
-    public void Call_Api_book_ride(String date,final String vehicleid, String pricc, final String driver_ID, final String vehicle_no, final String vehicle_image, String refreshtoken,final String vehicla_type_id){
+    public void Call_Api_book_ride(String date,final String vehicleid, String pricc, final String driver_ID, final String vehicle_no, final String vehicle_image, String refreshtoken,final String vehicla_type_id,final String refer_code){
 
         final HashMap<String,String> map=new HashMap<>();
         String userid=App_Conteroller.sharedpreferences.getString(SP_Utils.LOGIN_ID,"");
@@ -1425,6 +1450,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
                             map.put("user_contact",""+App_Conteroller.sharedpreferences.getString(SP_Utils.LOGIN_CONTACT_NUMBER,""));
                             map.put("vehicle_no",vehicle_no);
                             map.put("Driver_id",driver_ID);
+                            map.put("refer_code",refer_code);
                             map.put("vehicle_type_id",vehicla_type_id);
                             map.put("vehicle_image",vehicle_image);
                             mDatabase.child("Booking_ID").child(id).setValue(map);
@@ -1444,37 +1470,11 @@ public class From_Location extends AppCompatActivity implements LocationListener
                                             {
                                                 chk_timer_booking=false;
 
-                                                /*Handler handler=new Handler();
-                                                Runnable runnable=new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        progressDialog.dismiss();
-                                                        HashMap<String,String>map=new HashMap<>();
-                                                        map.put("id",id);
-                                                        Call<Response_register> call= APIClient.getWebServiceMethod().delete_Booked_ride(map);
-                                                        call.enqueue(new Callback<Response_register>() {
-                                                            @Override
-                                                            public void onResponse(Call<Response_register> call, Response<Response_register> response) {
-
-                                                            }
-
-                                                            @Override
-                                                            public void onFailure(Call<Response_register> call, Throwable t) {
-
-                                                            }
-                                                        });
-                                                        mDatabase.child("Booking_ID").child(id).removeValue();
-                                                        chk_timer_booking=true;
-                                                        Select_vehicle_position= Select_vehicle_position+1;
-                                                        Set_value_in_list();
-                                                    }
-                                                };
-                                                handler.postDelayed(runnable,30000);*/
                                                 Log.i(TAG,"Remaining time :start");
-                                                new CountDownTimer(50000, 1000) {
+                                                countDownTimer=  new CountDownTimer(50000, 1000) {
 
                                                     public void onTick(long millisUntilFinished) {
-                                                 //       txt_booking_timer.setText("Remaining: " + millisUntilFinished / 1000);
+                                                        //txt_booking_timer.setText("Remaining: " + millisUntilFinished / 1000);
                                                         Log.i(TAG,"Remaining time :"+millisUntilFinished / 1000);
                                                     }
                                                     public void onFinish() {
@@ -1533,7 +1533,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
                                             }
 
                                         }else{
-
+                                            countDownTimer.cancel();
                                             Change_vehicle_status(vehicleid);
 
                                             finish();
@@ -1609,14 +1609,14 @@ public class From_Location extends AppCompatActivity implements LocationListener
 
     }
 
-    private void Show_Driver_Location(final String datetime,final String vehicleid,final String amount, final String driver_ID, final String vehicle_no, final String vehicle_image,final String token_no,final String vehicle_type_id) {
+    private void Show_Driver_Location(final String datetime,final String vehicleid,final String amount, final String driver_ID, final String vehicle_no, final String vehicle_image,final String token_no,final String vehicle_type_id,final String refer_code) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         progressDialog=new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        Call_Api_book_ride(datetime,vehicleid,amount,driver_ID,vehicle_no,vehicle_image,token_no,vehicle_type_id);
+        Call_Api_book_ride(datetime,vehicleid,amount,driver_ID,vehicle_no,vehicle_image,token_no,vehicle_type_id,refer_code);
 
     }
 
@@ -1661,7 +1661,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
         }
     }
 
-    private void get_driver_token(final String datetime,final String vehicleid, final String amount, final String driver_ID, final String vehicle_no, final String vehicle_image, final String refreshtoken,final String vehicle_type_id,final String book_status) {
+    private void get_driver_token(final String datetime,final String vehicleid, final String amount, final String driver_ID, final String vehicle_no, final String vehicle_image, final String refreshtoken,final String vehicle_type_id,final String book_status,final String refer_code) {
         Call_driver_book_api=true;
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -1679,7 +1679,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
                     if   (Call_driver_book_api)
                     {
                         Call_driver_book_api=false;
-                        Show_Driver_Location(datetime,vehicleid,amount,driver_ID,vehicle_no,vehicle_image,token_no,vehicle_type_id);
+                        Show_Driver_Location(datetime,vehicleid,amount,driver_ID,vehicle_no,vehicle_image,token_no,vehicle_type_id,refer_code);
                     }
                 }else{
 
@@ -1781,9 +1781,10 @@ public class From_Location extends AppCompatActivity implements LocationListener
        // getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         CircleImageView vehi_typ_img=v.findViewById(R.id.vehicle_type_img);
         CircleImageView vehi_img=v.findViewById(R.id.vehicle_img);
-
+        final String Randam_no=getAlphaNumericString(7);
         TextView txt_amount=v.findViewById(R.id.txt_amount);
         txt_timer_value=v.findViewById(R.id.txt_timer);
+        TextView txt_refer_code=v.findViewById(R.id.txt_refer_code);
         TextView txt_book_type=v.findViewById(R.id.txt_book_type);
         TextView txt_vehicle_no=v.findViewById(R.id.txt_vehicle_no);
         TextView txt_vehicle_type=v.findViewById(R.id.txt_vehicle_type);
@@ -1791,6 +1792,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
         TextView txt_to=v.findViewById(R.id.txt_to_add);
         TextView txt_date=v.findViewById(R.id.txt_date);
         show_dialog_btn_submit=v.findViewById(R.id.txt_book_done);
+        txt_refer_code.setText(Randam_no);
         txt_from.setText(et_location.getText().toString().trim());
         txt_to.setText(et_location2.getText().toString().trim());
         txt_date.setText(datenew);
@@ -1805,7 +1807,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
             txt_amount.setText("0.00");
         }
 
-     //   String img_txt="http://thenber.com/backend/public/"+book_vehicle_image;
+        // String img_txt="http://thenber.com/backend/public/"+book_vehicle_image;
 
         Picasso.with(From_Location.this).load(get_Vehicle_icon).into(vehi_typ_img);
         Picasso.with(From_Location.this).load(book_vehicle_image).into(vehi_img);
@@ -1815,7 +1817,7 @@ public class From_Location extends AppCompatActivity implements LocationListener
             public void onClick(View view) {
                 if (App_Utils.isNetworkAvailable(From_Location.this)){
                     Check_booking_status=false;
-                    get_driver_token(datenew,book_vehicleid,book_amount,book_Driver_ID,book_vehicle_no,book_vehicle_image,book_refreshtoken,book_vehicle_type_id,Book_status);
+                    get_driver_token(datenew,book_vehicleid,book_amount,book_Driver_ID,book_vehicle_no,book_vehicle_image,book_refreshtoken,book_vehicle_type_id,Book_status,Randam_no);
                 }else{
                     Toast.makeText(From_Location.this, "No Internet", Toast.LENGTH_SHORT).show();
                 }

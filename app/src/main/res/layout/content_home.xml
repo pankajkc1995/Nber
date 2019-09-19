@@ -66,9 +66,42 @@
         android:orientation="vertical"
         android:id="@+id/layout_bottomsheet_list"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"
+       android:visibility="gone"
         android:layout_height="wrap_content">
         <include layout="@layout/layout_bottom_sheet"></include>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:id="@+id/layout_refer_code"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Enter Refer Code"
+                android:textSize="22dp"
+                android:id="@+id/txt_refer_code"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="11dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/border_line_grey"
+                android:textColor="@android:color/black"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Submit"
+                android:textSize="22dp"
+                android:id="@+id/button_refer_code"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="11dp"
+                android:background="@drawable/edittext"
+                android:textColor="@android:color/black"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
@@ -100,6 +133,7 @@
                 android:textColor="@android:color/black"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
